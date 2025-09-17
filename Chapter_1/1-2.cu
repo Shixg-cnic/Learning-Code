@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-_global_ void helloFromGPU(void){
+__global__ void helloFromGPU(void){
     printf("Hello World from GPU!\n");
 }
 
