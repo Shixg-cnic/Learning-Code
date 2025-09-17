@@ -5,7 +5,7 @@ __global__ void helloFromGPU(void){
 }
 
 __global__ void helloFromGPU1(void){
-    int a = threadIDx.x;
+    int a = threadIdx.x;
     printf("Hello World from GPU %d\n", a);
     
 }
