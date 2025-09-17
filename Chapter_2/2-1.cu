@@ -51,7 +51,7 @@ int main(){
     
     cudaMemcpy(h_C, d_C, nBytes, cudaMemcpyDeviceToHost);
 
-    for(int i = 0, i < nElem, i++){
+    for(int i = 0; i < nElem; i++){
         printf("%f + %f = %f\n", h_A[i], h_B[i], h_C[i]);
     }
 
