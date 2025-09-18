@@ -23,6 +23,6 @@ int main(){
     grid.x = (block.x+nElem-1)/block.x;
     printf("blockIdx: %d gridIdx: %d\n", block.x, grid.x);
 
-    
-    reutrn 0;
+
+    return 0;
 }
