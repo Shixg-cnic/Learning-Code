@@ -92,7 +92,7 @@ int main(){
 
     cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost);
 
-    sumArrayOnHost(h_A, h_B, hostRef);
+    sumArrayOnHost(h_A, h_B, hostRef, nElem);
 
     checkResult(hostRef, gpuRef, nElem);
 
