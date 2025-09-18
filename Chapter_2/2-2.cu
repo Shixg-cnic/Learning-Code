@@ -7,7 +7,11 @@ __global__ void checkIndex(void){
     // printf("blockDim: (%d, %d, %d)\n", blockDim.x, blockIdx.y, blockIdx.z);
     // printf("gridDim: (%d, %d, %d)\n", gridDim.x, gridDim.y, gridDim.z);
 
-    printf("threadIdx: (%d, %d, %d) blockIdx: (%d, %d, %d) blockDim: (%d, %d, %d) gridDim: (%d, %d, %d) \n", threadIdx.x, threadIdx.y, threadIdx.z, blockIdx.x, blockIdx.y, blockIdx.z, blockDim.x, blockIdx.y, blockIdx.z,, gridDim.x, gridDim.y, gridDim.z);
+    printf("threadIdx: (%d, %d, %d) blockIdx: (%d, %d, %d) blockDim: (%d, %d, %d) gridDim: (%d, %d, %d) \n",
+        threadIdx.x, threadIdx.y, threadIdx.z,
+        blockIdx.x, blockIdx.y, blockIdx.z,
+        blockDim.x, blockIdx.y, blockIdx.z,
+        gridDim.x, gridDim.y, gridDim.z);
 
 }
 
