@@ -2,10 +2,10 @@
 #include <cuda_runtime.h>
 
 __global__ void checkIndex(void){
-    printf("threadIdx.x: %d threadIdx.y: %d threadIdx.z: %d\n", threadIdx.x, threadIdx.y, threadIdx.z);
-    printf("blockIdx.x: %d blockIdx.y: %d blockIdx.z: %d\n", blockIdx.x, blockIdx.y, blockIdx.z);
-    printf("blockDim.x: %d blockDim.y: %d, blockDim.z: %d\n", blockDim.x, blockIdx.y, blockIdx.z);
-    printf("gridDim.x: %d gridDim.y: %d gridDim.z: %d\n", gridDim.x, gridDim.y, gridDim.z);
+    printf("threadIdx: (%d, %d, %d)\n", threadIdx.x, threadIdx.y, threadIdx.z);
+    printf("blockIdx: (%d, %d, %d)\n", blockIdx.x, blockIdx.y, blockIdx.z);
+    printf("blockDim: (%d, %d, %d)\n", blockDim.x, blockIdx.y, blockIdx.z);
+    printf("gridDim: (%d, %d, %d)\n", gridDim.x, gridDim.y, gridDim.z);
 
 }
 
@@ -15,8 +15,8 @@ int main(){
     dim3 block (3);
     dim3 grid((nElem+block.x-1)/block.x);
     
-    printf("grid x,y,z: %d %d %d", grid.x, grid.y, grid.z);
-    printf("block x,y,z: %d %d %d", block.x, block.y, block.z);
+    printf("grid x,y,z: %d %d %d \n", grid.x, grid.y, grid.z);
+    printf("block x,y,z: %d %d %d \n", block.x, block.y, block.z);
     
     checkIndex <<<grid, block>>>();
     
