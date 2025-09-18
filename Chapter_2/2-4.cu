@@ -5,15 +5,17 @@
 
 
 
-#define CHECK(call)
-{
-    const cudaError_t error = call;
-    if (error != cudaSuccess){
-        printf("Error : %s:%d, ", __FILE__, __LINE__);
-        printf("code: %d, reason: %s\n", error, cudaGetErrorString(error));
-        exit(1);
-    }
-}
+#define CHECK(call)                                                                 \
+{                                                                                   \
+    const cudaError_t error = call;                                                 \
+    if (error != cudaSuccess){                                                      \
+        printf("Error : %s:%d, ", __FILE__, __LINE__);                              \
+        printf("code: %d, reason: %s\n", error, cudaGetErrorString(error));         \
+    exit(1);                                                                        \
+    }                                                                               \
+}                                                                                   
+
+
 void checkResult(float *hostRef, float *gpuRef, const int N){
     double epsilon = 1.0E-8;
     bool match = 1;
@@ -46,7 +48,7 @@ void sumArrayOnHost(float *A, float *B, float *C, const int N){
     }
 }
 
-__global__ void sumArrayOnGPU(flaot *A, float *B, flaot *C){
+__global__ void sumArrayOnGPU(float *A, float *B, float *C){
 
     int i = threadIdx.x;
     C[i] = A[i] + B[i];
@@ -85,7 +87,7 @@ int main(){
     dim3 block (nElem);
     dim3 grid (nElem/block.x);
 
-    sumArraysOnGPU<<< grid, block >>> (d_A, d_B, d_C);
+    sumArrayOnGPU<<< grid, block >>> (d_A, d_B, d_C);
     printf("Execution configuration <<< %d,%d>>>\n",block.x, grid.x);
 
     cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost);
@@ -94,12 +96,12 @@ int main(){
 
     checkResult(*hostRef, *gpuRef, nElem);
 
-    cudafree(d_A);
-    cudafree(d_B);
-    cudafree(d_C);
+    cudaFree(d_A);
+    cudaFree(d_B);
+    cudaFree(d_C);
 
     free(h_A);
-    free(h_b);
+    free(h_B);
     free(hostRef);
     free(gpuRef);
 
