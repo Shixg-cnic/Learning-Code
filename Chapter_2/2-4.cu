@@ -85,7 +85,7 @@ int main(){
     cudaMemcpy(d_B, h_B, nBytes, cudaMemcpyHostToDevice);
 
     dim3 block (nElem);
-    dim3 grid (nElem/block.x);
+    dim3 grid ((nElem+block.x-1)/block.x);
 
     sumArrayOnGPU<<< grid, block >>> (d_A, d_B, d_C);
     printf("Execution configuration <<< %d,%d>>>\n",block.x, grid.x);
