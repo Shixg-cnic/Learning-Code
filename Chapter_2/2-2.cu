@@ -11,11 +11,11 @@ __global__ void checkIndex(void){
 
 
 int main(){
-    int Elem = 6;
-    dim block (3);
-    dim grid((nElem+block.x-1)/block.x);
+    int nElem = 6;
+    dim3 block (3);
+    dim3 grid((nElem+block.x-1)/block.x);
     
-    printf("grid x,y,z: %d %d %d", grid.x, gird.y, grid.z);
+    printf("grid x,y,z: %d %d %d", grid.x, grid.y, grid.z);
     printf("block x,y,z: %d %d %d", block.x, block.y, block.z);
     
     checkIndex <<<grid, block>>>();
