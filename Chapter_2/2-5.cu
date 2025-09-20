@@ -111,7 +111,7 @@ int main(){
     sumArrayOnGPU<<< grid, block >>> (d_A, d_B, d_C);
     cudaDeviceSynchronize();
     iElaps = cpuSecond() - iStart;
-    printf("Execution configuration <<< %d,%d>>> Time elepsed %f sec\n" ,block.x, grid.x, iElaps);
+    printf("Execution configuration <<< %d,%d>>> Time elepsed %f sec\n" ,grid.x, block.x, iElaps);
     
     cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost);
 
