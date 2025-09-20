@@ -93,6 +93,7 @@ int main(){
     iStart = cpuSecond();
     sumArrayOnHost(h_A,h_B,hostRef,nElem);
     iElaps = cpuSecond() - iStart;
+    printf("CPU Time elepsed %f sec\n" ,iElaps);
 
     float *d_A, *d_B, *d_C;
     cudaMalloc((float **)&d_A, nBytes);
