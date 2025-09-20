@@ -109,6 +109,7 @@ int main(){
 
     iStart = cpuSecond();
     sumArrayOnGPU<<< grid, block >>> (d_A, d_B, d_C);
+    CHECK(cudaGetLastError());
     cudaDeviceSynchronize();
     iElaps = cpuSecond() - iStart;
     printf("Execution configuration <<< %d,%d>>> Time elepsed %f sec\n" ,grid.x, block.x, iElaps);
