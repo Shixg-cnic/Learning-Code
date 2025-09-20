@@ -47,7 +47,7 @@ void sumArrayOnHost(float *A, float *B, float *C, const int N){
 
 __global__ void sumArrayOnGPU(float *A, float *B, float *C){
 
-    int i = threadIdx.x;
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
     C[i] = A[i] + B[i];
 }
 
