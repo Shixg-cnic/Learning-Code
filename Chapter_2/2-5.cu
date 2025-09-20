@@ -90,7 +90,7 @@ int main(){
     memset(hostRef, 0, nBytes);
     memset(gpuRef, 0, nBytes);
 
-    istart = cpuSecond();
+    iStart = cpuSecond();
     sumArrayOnHost(h_A,h_B,hostRef,nElem);
     iElaps = cpuSecond() - iStart;
 
@@ -106,10 +106,10 @@ int main(){
     dim3 block (iLen);
     dim3 grid ((nElem+block.x-1)/block.x);
 
-    istart = cpuSecond();
+    iStart = cpuSecond();
     sumArrayOnGPU<<< grid, block >>> (d_A, d_B, d_C);
     cudaDeviceSynchronize();
-    iElaps = cpuSecond() - istart;
+    iElaps = cpuSecond() - iStart;
     printf("Execution configuration <<< %d,%d>>> Time elepsed %f sec\n" ,block.x, grid.x, iElaps);
     
     cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost);
