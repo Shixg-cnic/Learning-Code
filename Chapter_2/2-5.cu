@@ -65,9 +65,9 @@ int main(){
     cudaDeviceProp deviceProp;
     CHECK(cudaGetDeviceProperties(&deviceProp, dev));
     printf("Using Device %d: %s",dev,deviceProp.name);
-    printf("Total global memory: %zu\n", prop.totalGlobalMem);
-    printf("Max threads per block: %d\n", prop.maxThreadsPerBlock);
-    CHECL(cudaSetDevice(dev));
+    printf("Total global memory: %zu\n", deviceProp.totalGlobalMem);
+    printf("Max threads per block: %d\n", deviceProp.maxThreadsPerBlock);
+    CHECK(cudaSetDevice(dev));
 
     int nElem = 1<<24;
     printf("Vector size %d\n", nElem);
@@ -90,7 +90,7 @@ int main(){
     memset(hostRef, 0, nBytes);
     memset(gpuRef, 0, nBytes);
 
-    istarts = cpuSecond();
+    istart = cpuSecond();
     sumArrayOnHost(h_A,h_B,hostRef,nElem);
     iElaps = cpuSecond() - iStart;
 
@@ -108,9 +108,9 @@ int main(){
 
     istart = cpuSecond();
     sumArrayOnGPU<<< grid, block >>> (d_A, d_B, d_C);
-    cudaDeviceSyschronize();
-    iEleps = cpuSecond() - istart;
-    printf("Execution configuration <<< %d,%d>>> Time elepsed %f sec\n" ,block.x, grid.x, iEleps);
+    cudaDeviceSynchronize();
+    iElaps = cpuSecond() - istart;
+    printf("Execution configuration <<< %d,%d>>> Time elepsed %f sec\n" ,block.x, grid.x, iElaps);
     
     cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost);
 
