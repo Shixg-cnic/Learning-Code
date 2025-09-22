@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <cuda_runtime.h>
 
-#define CHECK(call)
+#define CHECK(call)                                                                 \
 {                                                                                   \
     const cudaError_t error = call;                                                 \
     if (error != cudaSuccess){                                                      \
@@ -56,22 +56,22 @@ int main(){
     (int *)malloc(nBytes);
 
     initialInt(h_A,nxy);
-    printMatrix(h_A,nc,ny);
+    printMatrix(h_A,nx,ny);
 
     int *d_MatA;
     cudaMalloc((void **)&d_MatA,nBytes);
 
-    cudaMemcpy(d_MatA, h_A, n_Bytes, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_MatA, h_A, nBytes, cudaMemcpyHostToDevice);
 
-    dim block(2,4);
-    dim grid((nx+block.x-1)/block.x, (ny+block.y-1)/block.y);
+    dim3 block(2,4);
+    dim3 grid((nx+block.x-1)/block.x, (ny+block.y-1)/block.y);
 
     printThreadIndex <<<block,grid>>>(d_MatA,nx,ny);
 
     cudaFree(d_MatA);
-    Free(h_A);
+    free(h_A);
 
     cudaDeviceReset();
     return 0;
-    
+
 }
