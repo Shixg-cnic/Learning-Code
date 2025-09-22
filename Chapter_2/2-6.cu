@@ -22,7 +22,7 @@ void printMatrix(int *C, const int nx, const int ny){
     printf("\nMatrix: (%d,%d)\n",nx,ny);
     for(int iy = 0; iy < ny; iy++){
         for(int ix = 0; ix < nx; ix++){
-            printf("3d%", ic[ix]);
+            printf("%3d", ic[ix]);
         }
         ic = ic + nx;
         printf("\n");
