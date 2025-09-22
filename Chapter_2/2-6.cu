@@ -66,7 +66,7 @@ int main(){
     dim3 block(2,4);
     dim3 grid((nx+block.x-1)/block.x, (ny+block.y-1)/block.y);
 
-    printThreadIndex <<<block,grid>>>(d_MatA,nx,ny);
+    printThreadIndex <<<grid,block>>>(d_MatA,nx,ny);
 
     cudaFree(d_MatA);
     free(h_A);
