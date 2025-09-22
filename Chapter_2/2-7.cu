@@ -28,6 +28,16 @@ void checkResult(float *hostRef, float *gpuRef, const int N){
 
 }
 
+void initialData(float *ip, int size){
+    time_t t;
+    srand((unsigned) time(&t));
+    
+    for(int i = 0; i < size; i++){
+        ip[i] = (float) ( rand() & 0xFF )/10.0f;
+
+    }
+}
+
 void initialInt(int *ip, int size){
     for(int i = 0; i < size; i++){
         ip[i] = i;
@@ -57,7 +67,7 @@ void sumMatrixOnHost(float *A, float *B, float *C, int nx, const int ny){
 
 __global__ void sumMatrixOnGPU2D(float *A, float *B, float *C, int nx, int ny){
     unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x;
-    unsigned int iy = threadIdx.y + blockIdx.y * blockDim.y
+    unsigned int iy = threadIdx.y + blockIdx.y * blockDim.y;
     unsigned int idx = ix + iy * nx;
     if(ix < nx && iy < ny){
         C[idx] = A[idx] + B[idx];
@@ -83,7 +93,7 @@ int main(){
     hostRef = (float *)malloc(nBytes);
     gpuRef = (float *)malloc(nBytes);
     double iStart, iElaps;
-    
+
     iStart = cpuSecond();
     initialData(h_A, nxy);
     initialData(h_B, nxy);
@@ -119,9 +129,9 @@ int main(){
     
     checkResult(hostRef, gpuRef, nElem);
 
-    cudaFree(d_A);
-    cudaFree(d_B);
-    cudaFree(d_C);
+    cudaFree(d_MatA);
+    cudaFree(d_MatB);
+    cudaFree(d_MatC);
 
     free(h_A);
     free(h_B);
