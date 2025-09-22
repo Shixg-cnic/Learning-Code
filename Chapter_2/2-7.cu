@@ -40,13 +40,13 @@ double cpuSecond(){
     return ((double)tp.tv_sec + (double)tp.tv_usec*1.e-6);
 }
 
-void sumMatrixOnHost(float *A, float *B, const int nx, const int ny){
+void sumMatrixOnHost(float *A, float *B, float *C, int nx, const int ny){
     float *ia = A;
     float *ib = B;
     float *ic = C;
 
-    for(int iy = 0; i < ny; iy++){
-        for(int ix = 0; i < nx; ix++){
+    for(int iy = 0; iy < ny; iy++){
+        for(int ix = 0; ix < nx; ix++){
             ic[ix] = ia[ix] + ib[ix];
         }
         ia += nx;
@@ -55,7 +55,7 @@ void sumMatrixOnHost(float *A, float *B, const int nx, const int ny){
     }
 }
 
-__global__ void sumMatrixOnGPU2D(flaot *A, float *B, flaot *C, int nx, int ny){
+__global__ void sumMatrixOnGPU2D(float *A, float *B, float *C, int nx, int ny){
     unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x;
     unsigned int iy = threadIdx.y + blockIdx.y * blockDim.y
     unsigned int idx = ix + iy * nx;
@@ -82,10 +82,11 @@ int main(){
     h_B = (float *)malloc(nBytes);
     hostRef = (float *)malloc(nBytes);
     gpuRef = (float *)malloc(nBytes);
-
+    double iStart, iElaps;
+    
     iStart = cpuSecond();
-    initialData(h_A, nElem);
-    initialData(h_B, nElem);
+    initialData(h_A, nxy);
+    initialData(h_B, nxy);
     iElaps = cpuSecond() - iStart;
 
     memset(hostRef, 0, nBytes);
