@@ -63,7 +63,7 @@ int main(){
 
     cudaMemcpy(d_MatA, h_A, nBytes, cudaMemcpyHostToDevice);
 
-    dim3 block(2,4);
+    dim3 block(4,2);
     dim3 grid((nx+block.x-1)/block.x, (ny+block.y-1)/block.y);
 
     printThreadIndex <<<grid,block>>>(d_MatA,nx,ny);
