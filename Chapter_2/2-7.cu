@@ -75,6 +75,8 @@ __global__ void sumMatrixOnGPU2D(float *A, float *B, float *C, int nx, int ny){
 }
 
 int main(){
+    printf("Strating...\n");
+
     int dev = 0;
     cudaDeviceProp deviceProp;
     CHECK(cudaGetDeviceProperties(&deviceProp,dev));
@@ -83,8 +85,8 @@ int main(){
 
     int nx = 1<<14;
     int ny = 1<<15;
-    int nxy = nx * ny;
-    int nBytes = nxy * sizeof(float);
+    size_t nxy = nx * ny;
+    size_t nBytes = nxy * sizeof(float);
     printf("Matrix size: nx %d ny %d",nx,ny);
 
     float *h_A, *h_B, *hostRef, *gpuRef;
