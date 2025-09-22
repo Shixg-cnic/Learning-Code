@@ -43,7 +43,7 @@ int main(){
     
     int dev = 0;
     cudaDeviceProp deviceProp;
-    CHECK(cudeGetDeviceProperties(&deviceProp,dev));
+    CHECK(cudaGetDeviceProperties(&deviceProp,dev));
     printf("Using Device %d: %s",dev,deviceProp.name);
     CHECK(cudaSetDevice(dev));
 
