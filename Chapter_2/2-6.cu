@@ -53,7 +53,7 @@ int main(){
     int nBytes = nxy * sizeof(float);
 
     int *h_A;
-    (int *)malloc(nBytes);
+    h_A = (int *)malloc(nBytes);
 
     initialInt(h_A,nxy);
     printMatrix(h_A,nx,ny);
