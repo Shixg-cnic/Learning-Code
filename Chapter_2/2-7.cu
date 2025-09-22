@@ -111,8 +111,8 @@ int main(){
     cudaMalloc((void **)&d_MatB, nBytes);
     cudaMalloc((void **)&d_MatC, nBytes);
 
-    cudaMemcpy(d_MatA, *h_A, nBytes, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_MatB, *h_B, nBytes, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_MatA, h_A, nBytes, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_MatB, h_B, nBytes, cudaMemcpyHostToDevice);
 
     int dimx = 32;
     int dimy = 32;
@@ -127,7 +127,7 @@ int main(){
     
     cudaMemcpy(gpuRef, d_MatC, nBytes, cudaMemcpyDeviceToHost);
     
-    checkResult(hostRef, gpuRef, nElem);
+    checkResult(hostRef, gpuRef, nxy);
 
     cudaFree(d_MatA);
     cudaFree(d_MatB);
